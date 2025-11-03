@@ -4,15 +4,16 @@ import InformationForm from './InformationForm';
 
 export default function Dashbord() {
     const [formData, setFormData] = useState({
-        name: "DefaultUser",
+        first_name: "",
         email: "",
-        phoneNumber: "+98"
+        phoneNumber: ""
     });
     const [activeIndex, setActiveIndex] = useState(0);
     const [submitted, setSubmitted] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
 
-     const handleEdit = () => {
+    const handleEdit = () => {
         setSubmitted(false);
         setActiveIndex(0);
     };
@@ -77,11 +78,29 @@ export default function Dashbord() {
     return (
         <>
             <div className="container mx-auto p-5 font-vazir">
+                <div className='md:hidden flex justify-end my-5 ' >
+                    <div className='cursor-pointer' onClick={() => setMenuOpen(!menuOpen)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </div>
+                </div>
+                {menuOpen && (
+                    <div
+                        onClick={() => setMenuOpen(false)}
+                        className="fixed inset-0 bg-black/30 md:hidden z-40"
+                    ></div>
+                )}
                 <div className="flex items-center justify-center gap-5 flex-row-reverse">
                     {/* Dashbord Items */}
-                    <div className="w-32 md:w-72 h-full border border-gray-300 rounded-2xl shadow-2xs">
+
+                    <div
+                        className={`w-64 md:w-72 fixed md:static top-0 right-0 h-full bg-white border border-gray-300 rounded-l-2xl shadow-2xs transform transition-transform duration-300 z-50
+  ${menuOpen ? "translate-x-0" : "translate-x-full"} md:translate-x-0 md:rounded-2xl`}
+                    >
+
                         {/* dashbordProfile */}
-                        <div className='hidden md:block relative'>
+                        <div className='relative'>
                             <img className='w-full h-full object-cover' src={profile} alt="" />
                             <div className=" text-2xl font-bold absolute inset-0 flex items-center justify-center bg-white/45 rounded-t-2xl">
                                 <span className='text-gray-600'>هوم</span>
@@ -90,12 +109,18 @@ export default function Dashbord() {
                         </div>
                         {/* dashbordPersonalInfo */}
                         <div className='flex justify-between items-center p-3'>
+                            <div className='md:hidden cursor-pointer' onClick={() => setMenuOpen(!menuOpen)}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+
+                            </div>
                             <div> <svg onClick={handleEdit} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.2} stroke="currentColor" className="size-5 cursor-pointer hidden md:block">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                             </svg>
                             </div>
                             <div className='flex flex-col items-end gap-1.5'>
-                                <h3 className='text-[14px] font-bold'>{formData.name}</h3>
+                                <h3 className='text-[14px] font-bold'>{formData.first_name}</h3>
                                 <span className='text-[12px] text-gray-600'>{formData.phoneNumber}</span>
                             </div>
                         </div>
@@ -110,12 +135,13 @@ export default function Dashbord() {
                                         } else {
                                             setActiveIndex(index);
                                         }
+                                        setMenuOpen(false);
                                     }}
-                                    className={`p-3 w-16 justify-center md:w-full h-11 cursor-pointer transition-all rounded-md flex gap-3 text-sm md:justify-end items-center border-b border-b-gray-300
+                                    className={`p-3 w-full h-11 cursor-pointer transition-all rounded-md flex gap-3 text-sm justify-end items-center border-b border-b-gray-300
                                     ${activeIndex === index ? "bg-pink-100 text-pink-800" : "text-gray-600 hover:bg-pink-100 hover:text-pink-800"}
                                     `}
                                 >
-                                    <h4 className='hidden md:block'>{item.title}</h4>
+                                    <h4>{item.title}</h4>
                                     {item.icon}
                                 </div>
                             ))}
@@ -123,7 +149,7 @@ export default function Dashbord() {
                         </div>
                     </div>
                     {/* result items */}
-                    <div className="w-full h-96 border border-gray-300 rounded-2xl shadow-2xs">
+                    <div className="w-full h-full border border-gray-300 rounded-2xl shadow-2xs">
                         {sidebarItems[activeIndex].component}
                     </div>
                 </div>
