@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import InformationForm from "./InformationForm";
 import profile from "../assets/dashbordProfile.jpg";
+import OrdersPage from "./OrdersPage";
 
 export default function Dashbord() {
   const [formData, setFormData] = useState({
@@ -84,6 +85,7 @@ export default function Dashbord() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
         </svg>
       ),
+      component: (<OrdersPage />)
     },
     {
       title: "علاقه‌مندی‌ها",
@@ -147,7 +149,7 @@ export default function Dashbord() {
         <div onClick={() => setMenuOpen(false)} className="fixed inset-0 bg-black/30 md:hidden z-40"></div>
       )}
 
-      <div className="flex place-items-start justify-center gap-5 flex-row-reverse">
+      <div className="flex place-items-start  gap-5 flex-row-reverse">
         {/* سایدبار */}
         <div
           className={`w-64 md:w-72 fixed md:static top-0 right-0 h-full bg-white border border-gray-300 rounded-l-2xl shadow-md transform transition-transform duration-300 z-50
@@ -201,9 +203,8 @@ export default function Dashbord() {
         </div>
 
         {/* بخش محتوای سمت چپ */}
-        <div className="w-full h-full border border-gray-300 rounded-2xl shadow-md">
           {sidebarItems[activeIndex].component}
-        </div>
+
       </div>
     </div>
   );
