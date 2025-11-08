@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import InformationForm from "./InformationForm";
 import profile from "../assets/dashbordProfile.jpg";
 import OrdersPage from "./OrdersPage";
+import Wallet from "./Wallet";
 
 export default function Dashbord() {
   const [formData, setFormData] = useState({
@@ -16,9 +17,21 @@ export default function Dashbord() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [walletAmount, setWalletAmount] = useState(() => {
+    const saved = localStorage.getItem("walletAmount");
+    return saved ? parseInt(saved) : 1000;
+  });
 
-  // ---------- Load saved data ----------
   useEffect(() => {
+    localStorage.setItem("walletAmount", walletAmount);
+  }, [walletAmount]);
+
+  useEffect(() => {
+    const savedIndex = localStorage.getItem("activeIndex");
+    if (savedIndex !== null) {
+      setActiveIndex(Number(savedIndex));
+    }
+
     const savedData = localStorage.getItem("userInfo");
     if (savedData) {
       setFormData(JSON.parse(savedData));
@@ -26,7 +39,6 @@ export default function Dashbord() {
     }
   }, []);
 
-  // ---------- Save data ----------
   const handleFormChange = (newData) => {
     setFormData(newData);
   };
@@ -38,44 +50,24 @@ export default function Dashbord() {
 
   const handleEdit = () => {
     setSubmitted(false);
-    setActiveIndex(0);
+    setActiveIndex(5);
   };
 
   const sidebarItems = [
+
     {
-      title: "ویرایش پروفایل",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-5"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-          />
-        </svg>
-      ),
-      component: (
-        <InformationForm
-          formData={formData}
-          onFormChange={handleFormChange}
-          submitted={submitted}
-          onSubmit={handleSubmit}
-          onEdit={handleEdit}
-        />
-      ),
-    },
-    {
-      title: "کیف پول",
+      title: (<span className="flex flex-row-reverse items-center gap-5">
+        کیف پول  <span className="font-bold text-[12px]"> {walletAmount} تومان</span>
+      </span>),
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
         </svg>
+      ),
+      component: (
+        <Wallet
+          amount={walletAmount}
+          setAmount={setWalletAmount} />
       ),
     },
     {
@@ -113,11 +105,31 @@ export default function Dashbord() {
       ),
     },
     {
-      title: "تغییر رمز عبور",
+      title: ` ویرایش پروفایل`,
       icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+          />
         </svg>
+      ),
+      component: (
+        <InformationForm
+          formData={formData}
+          onFormChange={handleFormChange}
+          submitted={submitted}
+          onSubmit={handleSubmit}
+          onEdit={handleEdit}
+        />
       ),
     },
     {
@@ -129,6 +141,8 @@ export default function Dashbord() {
       ),
       action: () => {
         localStorage.removeItem("userInfo");
+        localStorage.removeItem("activeIndex");
+        localStorage.removeItem("walletAmount");
         window.location.reload();
       },
     },
@@ -149,7 +163,7 @@ export default function Dashbord() {
         <div onClick={() => setMenuOpen(false)} className="fixed inset-0 bg-black/30 md:hidden z-40"></div>
       )}
 
-      <div className="flex place-items-start  gap-5 flex-row-reverse">
+      <div className="flex place-items-start gap-5 flex-row-reverse">
         {/* سایدبار */}
         <div
           className={`w-64 md:w-72 fixed md:static top-0 right-0 h-full bg-white border border-gray-300 rounded-l-2xl shadow-md transform transition-transform duration-300 z-50
@@ -189,7 +203,10 @@ export default function Dashbord() {
                 key={index}
                 onClick={() => {
                   if (item.action) item.action();
-                  else setActiveIndex(index);
+                  else {
+                    setActiveIndex(index);
+                    localStorage.setItem("activeIndex", index);
+                  }
                   setMenuOpen(false);
                 }}
                 className={`p-3 w-full h-11 cursor-pointer transition-all rounded-md flex gap-3 text-sm justify-end items-center border-b border-b-gray-300
@@ -203,8 +220,7 @@ export default function Dashbord() {
         </div>
 
         {/* بخش محتوای سمت چپ */}
-          {sidebarItems[activeIndex].component}
-
+        {sidebarItems[activeIndex].component}
       </div>
     </div>
   );

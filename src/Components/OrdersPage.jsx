@@ -1,20 +1,7 @@
 import { useState } from "react";
 
 export default function OrdersPage() {
-    const [filters, setFilters] = useState({
-        status: "همه موارد",
-        fromDate: "",
-        toDate: "",
-    });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFilters((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleFilter = () => {
-        if (onFilter) onFilter(filters);
-    };
     const [orders, setOrders] = useState([
         {
             id: 1,
@@ -46,7 +33,7 @@ export default function OrdersPage() {
             date: "1402/07/26",
             amount: "1,000,000 تومان",
             status: "مرجوع شده",
-            color: "bg-gray-100 text-gray-700",
+            color: "bg-gray-200 text-gray-600",
         },
     ]);
     return (
@@ -121,8 +108,6 @@ export default function OrdersPage() {
                             <label className="text-sm text-gray-600 mb-1">وضعیت</label>
                             <select
                                 name="status"
-                                value={filters.status}
-                                onChange={handleChange}
                                 className="border border-gray-300 text-sm rounded-md px-3 py-2 "
                             >
                                 <option>همه موارد</option>
@@ -139,8 +124,6 @@ export default function OrdersPage() {
                             <input
                                 type="date"
                                 name="fromDate"
-                                value={filters.fromDate}
-                                onChange={handleChange}
                                 className="border border-gray-300 text-sm rounded-md px-3 py-2 "
                             />
                         </div>
@@ -151,8 +134,6 @@ export default function OrdersPage() {
                             <input
                                 type="date"
                                 name="toDate"
-                                value={filters.toDate}
-                                onChange={handleChange}
                                 className="border border-gray-300 text-sm rounded-md px-3 py-2 "
                             />
                         </div>
@@ -161,7 +142,6 @@ export default function OrdersPage() {
                     </div>
                     <div className="flex gap-3 mt-5 ">
                         <button
-                            onClick={handleFilter}
                             className="bg-pink-700 text-white flex items-center gap-2 text-sm px-6 py-2 rounded-md hover:bg-red-800 transition cursor-pointer"
                         >
 
@@ -224,10 +204,6 @@ export default function OrdersPage() {
                     </div>
                 </div>
             </div>
-
-
-
-
         </>
     )
 }
