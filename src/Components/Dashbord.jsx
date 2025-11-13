@@ -3,6 +3,9 @@ import InformationForm from "./InformationForm";
 import profile from "../assets/dashbordProfile.jpg";
 import OrdersPage from "./OrdersPage";
 import Wallet from "./Wallet";
+import Message from "./Message";
+import Favorites from "./Favorites";
+import AddressBook from "./AddressBook";
 
 export default function Dashbord() {
   const [formData, setFormData] = useState({
@@ -86,6 +89,7 @@ export default function Dashbord() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
         </svg>
       ),
+      component: (<Favorites />)
     },
     {
       title: "پیام‌ها",
@@ -94,6 +98,7 @@ export default function Dashbord() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
         </svg>
       ),
+      component: (<Message />)
     },
     {
       title: "آدرس‌ها",
@@ -103,6 +108,7 @@ export default function Dashbord() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
         </svg>
       ),
+      component: (<AddressBook />)
     },
     {
       title: ` ویرایش پروفایل`,
@@ -149,10 +155,10 @@ export default function Dashbord() {
   ];
 
   return (
-    <div className="container mx-auto px-5 md:p-5 font-vazir">
+    <div className="container mx-auto px-5 md:p-5 font-vazir relative">
       {/* موبایل منو */}
-      <div className="md:hidden flex justify-end my-5">
-        <div className="cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
+      <div className="md:hidden flex justify-end sticky top-0 right-0 bg-white z-30">
+        <div className="cursor-pointer my-2" onClick={() => setMenuOpen(!menuOpen)}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>

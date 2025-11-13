@@ -22,7 +22,7 @@ export default function InformationForm({ formData, onFormChange, submitted, onS
   return (
     <>
       <div className="w-full h-full space-y-4 p-3" dir="rtl" >
-        <div className="w-full h-full border border-gray-300 rounded-2xl shadow-md">
+        <div className="border border-gray-300 rounded-2xl shadow-md">
           <div className="p-4 w-full" dir="rtl">
             {!submitted && (
               <form onSubmit={handleSubmit} className="space-y-5">
