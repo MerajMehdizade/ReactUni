@@ -64,20 +64,20 @@ export default function Message() {
                     </div>
                     {/* Modal */}
                     {showMessageModal && (
-                        <div id="static-modal" class="fixed top-0 right-0 left-0 z-50 w- w-full h-full flex items-center justify-center bg-black/50">
-                            <div class="bg-white rounded-lg shadow-sm w-lg md:w-full max-w-2xl transition-all duration-300 ease-out scale-95 opacity-0 animate-[fadeInScale_0.3s_forwards]">
-                                <div class="flex items-center justify-between p-4 border-b border-gray-500">
-                                    <h3 class="text-lg font-semibold text-gray-900">{selectedMessage?.title}</h3>
-                                    <button type="button" class="text-gray-400 hover:text-gray-900 cursor-pointer"
+                        <div id="static-modal" className="fixed top-0 right-0 left-0 z-50 w- w-full h-full flex items-center justify-center bg-black/50">
+                            <div className="bg-white rounded-lg shadow-sm w-lg md:w-full max-w-2xl transition-all duration-300 ease-out scale-95 opacity-0 animate-[fadeInScale_0.3s_forwards]">
+                                <div className="flex items-center justify-between p-4 border-b border-gray-500">
+                                    <h3 className="text-lg font-semibold text-gray-900">{selectedMessage?.title}</h3>
+                                    <button type="button" className="text-gray-400 hover:text-gray-900 cursor-pointer"
                                         onClick={() => setShowMessageModal(false)}>
                                         ✕
                                     </button>
                                 </div>
-                                <div class="p-4 space-y-4">
-                                    <p class="text-gray-600">{selectedMessage?.text}</p>
+                                <div className="p-4 space-y-4">
+                                    <p className="text-gray-600">{selectedMessage?.text}</p>
                                 </div>
-                                <div class="flex items-center p-4 border-t border-gray-500 gap-2 ">
-                                    <button onClick={() => setShowMessageModal(false)} class="text-white bg-red-700 px-5 py-2.5 rounded-lg cursor-pointer">بستن</button>
+                                <div className="flex items-center p-4 border-t border-gray-500 gap-2 ">
+                                    <button onClick={() => setShowMessageModal(false)} className="text-white bg-red-700 px-5 py-2.5 rounded-lg cursor-pointer">بستن</button>
                                 </div>
                             </div>
                         </div>
