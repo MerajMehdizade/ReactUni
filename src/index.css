@@ -16,3 +16,6 @@
     transform: scale(1);
   }
 }
+html, body {
+  background-color: #fff !important;
+}

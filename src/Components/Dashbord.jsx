@@ -155,7 +155,7 @@ export default function Dashbord() {
   ];
 
   return (
-    <div className="container mx-auto px-5 md:p-5 font-vazir relative">
+    <div className="container mx-auto px-5 md:p-5 font-vazir relative ">
       {/* موبایل منو */}
       <div className="md:hidden flex justify-end sticky top-0 right-0 bg-white z-30">
         <div className="cursor-pointer my-2" onClick={() => setMenuOpen(!menuOpen)}>

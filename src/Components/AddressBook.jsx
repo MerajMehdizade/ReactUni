@@ -124,7 +124,7 @@ export default function AddressBook() {
                                             </div>
 
                                         </div>
-                                        <div className="ms-4 text-gray-700 flex flex-col gap-2">
+                                        <div className="ms-4 text-gray-700 flex flex-col gap-2 text-[12px] md:text-sm">
                                             <p> <span className="font-bold">خیابان </span>{addressUser.street} ,  <span className="font-bold">پلاک</span> {addressUser.buildingNumber} ,  <span className="font-bold">واحد</span> {addressUser.unit}</p>
                                             <p><span className="font-bold">کد پستی</span> {addressUser.zipCode}</p>
                                         </div>
